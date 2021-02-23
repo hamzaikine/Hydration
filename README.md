@@ -3,5 +3,5 @@
 ## An IOS App built using swiftui.
 
 
-<img src="hydration.jpeg" width="600" height="300">
+<img src="hydration.jpeg" width="1200" height="300">
 
