@@ -14,61 +14,39 @@ struct ContentView: View {
     
     var body: some View {
         
-        
-
-            ZStack {
-
-                Color.black
-                    .opacity(0.8)
-                    .edgesIgnoringSafeArea(.all)
-
-
-                VStack {
-                    
-                    HStack {
-                        Text("Hydration")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(.white)
-                            .bold()
-                            .padding([.top, .leading])
-                        Spacer()
-                    }
-                    
-                    ProgressCircle(progress: self.$progressValue)
-                        .frame(width: 350, height: 350)
-
-
-
+        ZStack {
+            
+            Color.black
+                .opacity(0.8)
+                .edgesIgnoringSafeArea(.all)
+            
+            
+            VStack {
+                
+                HStack {
+                    Text("Hydration")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding([.top, .leading])
                     Spacer()
-
-
-
-                    QuickAddView(progress: self.$progressValue)
-
-
-
-
                 }
-
-
-
+                
+                ProgressCircle(progress: self.$progressValue)
+                    .frame(width: 350, height: 350)
+                Spacer()
+                QuickAddView(progress: self.$progressValue)
             }
-
             
-
-
-            
-            
-       
+        }
         
         
-       
     }
     
     func incrementProgress() {
         self.progressValue += 8
         
-        }
+    }
     
     func decrementProgress()  {
         self.progressValue -= 8
@@ -84,7 +62,7 @@ struct ContentView_Previews: PreviewProvider {
 
 
 struct Wave: Shape {
-
+    
     var offset: Angle
     var percent: Double
     
@@ -95,7 +73,7 @@ struct Wave: Shape {
     
     func path(in rect: CGRect) -> Path {
         var p = Path()
-
+        
         // empirically determined values for wave to be seen
         // at 0 and 100 percent
         let lowfudge = 0.02
@@ -128,16 +106,10 @@ struct CircleWaveView: View {
     @Binding var percent: Float
     
     var body: some View {
-
+        
         GeometryReader { geo in
             ZStack {
                 
-                Circle()
-                    .stroke(lineWidth: 15)
-                    .opacity(0.1)
-                    .foregroundColor(.blue)
-                    
-              
                 Circle()
                     .stroke(Color.blue, lineWidth: 0.025 * min(geo.size.width, geo.size.height))
                     .overlay(
@@ -151,7 +123,7 @@ struct CircleWaveView: View {
         .aspectRatio(1, contentMode: .fit)
         .onAppear {
             withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
-            self.waveOffset = Angle(degrees: 360)
+                self.waveOffset = Angle(degrees: 360)
             }
         }
     }
@@ -183,10 +155,7 @@ struct ProgressCircle: View {
             ZStack {
                 
                 CircleWaveView(percent: self.$progress)
-            
-            
-               
-               
+   
                 Path{ path in
                     path.move(to: CGPoint(x: 140, y: 100))
                     path.addLine(to: CGPoint(x: 140, y: 250))
@@ -210,18 +179,11 @@ struct ProgressCircle: View {
                             .shadow(color: .white, radius: 20)
                         Text("oz")
                             .foregroundColor(.white)
-                            
-                            
-                        
-                        
+              
                         
                     }
                     
-                   
-                        
-                    
-                    
-                    
+     
                     VStack {
                         
                         
@@ -237,7 +199,7 @@ struct ProgressCircle: View {
                                 .font(.title)
                                 .scaledToFit()
                                 .fixedSize()
-                                
+                            
                             
                         }
                         
@@ -248,32 +210,22 @@ struct ProgressCircle: View {
                         
                         
                     }
-                        
-                        
-                    
-                    
+                                
                     
                     Text(String(format: "%.0f%% of Goal ", self.progress * 100))
                         .font(.headline)
                         .foregroundColor(.orange)
                         .padding(.top)
-                        
+                    
                     Spacer()
-                  
+                    
                 }
                 
-                
-               
-               
-                 
-
+    
                 
             }
             
-           
-            
-            
-            
+       
             Button(action: {
                 progress += 0.08
             }, label: {
@@ -301,36 +253,36 @@ struct QuickAddView: View {
             Button(action: {
                 progress += 0.08
             }, label: {
-                    
-                    Text("+ 8 oz")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .bold()
-                  
-                        
-                      
-                        
-                        
+                
+                Text("+ 8 oz")
+                    .foregroundColor(.white)
+                    .font(.title3)
+                    .bold()
+                
+                
+                
+                
+                
             })
             .frame(width: 100, height: 40)
             .overlay(RoundedRectangle(cornerRadius: 3).stroke(lineWidth: 3.0).foregroundColor(.gray).opacity(1))
             .background(Color.gray)
             
-           
+            
             
             
             Button(action: {
                 progress += 0.16
             }, label: {
                 
-                    Text("+ 16 oz")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .bold()
+                Text("+ 16 oz")
+                    .foregroundColor(.white)
+                    .font(.title3)
+                    .bold()
                 
                 
-                        
-                       
+                
+                
             })
             
             .frame(width: 100, height: 40)
@@ -341,22 +293,22 @@ struct QuickAddView: View {
             Button(action: {
                 progress += 0.24
             }, label: {
-                    Text("+ 24 oz")
-                        .foregroundColor(.white)
-                        .font(.title3)
-                        .bold()
-                
-                
-                        
-                        .overlay(RoundedRectangle(cornerRadius: 3).stroke(lineWidth: 3.0).foregroundColor(.gray))
-                .background(Color.gray)
-                        .opacity(1.0)
+                Text("+ 24 oz")
+                    .foregroundColor(.white)
+                    .font(.title3)
+                    .bold()
+                    
+                    
+                    
+                    .overlay(RoundedRectangle(cornerRadius: 3).stroke(lineWidth: 3.0).foregroundColor(.gray))
+                    .background(Color.gray)
+                    .opacity(1.0)
                 
             })
             .frame(width: 100, height: 40)
             .overlay(RoundedRectangle(cornerRadius: 3).stroke(lineWidth: 3.0).foregroundColor(.gray).opacity(1))
             .background(Color.gray)
-           
+            
         }
         .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
     }
