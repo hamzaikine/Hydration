@@ -11,6 +11,7 @@ struct ContentView: View {
     
     
     @State var progressValue:Float = 0.0
+    @State private var goalValue: Float = 64.0
     
     var body: some View {
         
@@ -23,16 +24,16 @@ struct ContentView: View {
             
             VStack {
                 
-                HStack {
+                
                     Text("Hydration")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .foregroundColor(.white)
                         .bold()
-                        .padding([.top, .leading])
+                        .padding()
                     Spacer()
-                }
                 
-                ProgressCircle(progress: self.$progressValue)
+                
+                ProgressCircle(progress: self.$progressValue,goal: self.$goalValue)
                     .frame(width: 350, height: 350)
                 Spacer()
                 QuickAddView(progress: self.$progressValue)
@@ -43,14 +44,6 @@ struct ContentView: View {
         
     }
     
-    func incrementProgress() {
-        self.progressValue += 8
-        
-    }
-    
-    func decrementProgress()  {
-        self.progressValue -= 8
-    }
     
 }
 
@@ -104,6 +97,7 @@ struct CircleWaveView: View {
     
     @State private var waveOffset = Angle(degrees: 0)
     @Binding var percent: Float
+    @Binding var goal: Float
     
     var body: some View {
         
@@ -113,7 +107,7 @@ struct CircleWaveView: View {
                 Circle()
                     .stroke(Color.blue, lineWidth: 0.025 * min(geo.size.width, geo.size.height))
                     .overlay(
-                        Wave(offset: Angle(degrees: self.waveOffset.degrees), percent: Double(percent))
+                        Wave(offset: Angle(degrees: self.waveOffset.degrees), percent: Double(self.percent / self.goal) * 100)
                             .fill(Color(red: 0, green: 0.5, blue: 0.75, opacity: 0.5))
                             .clipShape(Circle().scale(0.92))
                     )
@@ -132,15 +126,16 @@ struct CircleWaveView: View {
 
 struct ProgressCircle: View {
     
+    
     @Binding var progress: Float
-    @State var isChecked: Bool = false
+    @Binding var goal: Float
     @State private var waveOffset = Angle(degrees: 0)
     
     var body: some View {
         HStack {
             
             Button(action: {
-                if progress > 0{
+                if progress > round(0) {
                     progress -= 0.08
                 }
                 
@@ -154,13 +149,22 @@ struct ProgressCircle: View {
             
             ZStack {
                 
-                CircleWaveView(percent: self.$progress)
+                CircleWaveView(percent: self.$progress, goal: self.$goal)
    
-                Path{ path in
-                    path.move(to: CGPoint(x: 140, y: 100))
-                    path.addLine(to: CGPoint(x: 140, y: 250))
-                }
-                .stroke(Color.white,style: StrokeStyle( lineWidth: 10, dash: [5],dashPhase:2))
+            
+                
+        
+                ForEach(1..<15) { index in
+                        let y = CGFloat(index * 10) + 100
+                        let lineWidth: CGFloat = index % 5 == 0 ? 40 : 20
+
+                        Path { path in
+                            path.move(to: CGPoint(x: 150, y: y))
+                            path.addLine(to: CGPoint(x: 150, y: y + 2))
+                        }
+                        .stroke(Color.white.opacity(0.4), style: StrokeStyle(lineWidth: lineWidth))
+                    }
+
                 
                 
                 
@@ -186,14 +190,14 @@ struct ProgressCircle: View {
      
                     VStack {
                         
-                        
-                        
-                        if self.progress >= 1.0 {
+                       
+                        if round((self.progress * 100)) >= round(goal) {
                             Image(systemName: "checkmark")
                                 .foregroundColor(.green)
                                 .font(.title)
                                 .scaledToFit()
                                 .fixedSize()
+                    
                         }else{
                             Image(systemName: "checkmark")
                                 .font(.title)
@@ -203,7 +207,7 @@ struct ProgressCircle: View {
                             
                         }
                         
-                        Text("100 oz")
+                        Text("\(self.goal, specifier: "%.0f") oz")
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding(.bottom)
@@ -212,7 +216,7 @@ struct ProgressCircle: View {
                     }
                                 
                     
-                    Text(String(format: "%.0f%% of Goal ", self.progress * 100))
+                    Text("\(((progress * 10000) / goal) , specifier: "%.0f%%") of Goal")
                         .font(.headline)
                         .foregroundColor(.orange)
                         .padding(.top)
@@ -291,9 +295,9 @@ struct QuickAddView: View {
             
             
             Button(action: {
-                progress += 0.24
+                progress += 0.32
             }, label: {
-                Text("+ 24 oz")
+                Text("+ 32 oz")
                     .foregroundColor(.white)
                     .font(.title3)
                     .bold()

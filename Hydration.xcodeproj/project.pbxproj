@@ -22,8 +22,6 @@
 		E4B28DB825E436960025131D /* Hydration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B28DBB25E436960025131D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4B28DC025E436960025131D /* Hydration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hydration.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4B28DC225E436960025131D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E4B28DC325E436960025131D /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,21 +45,9 @@
 		E4B28DAB25E436940025131D = {
 			isa = PBXGroup;
 			children = (
-				E4B28DB025E436940025131D /* Shared */,
 				E4B28DBA25E436960025131D /* iOS */,
-				E4B28DC125E436960025131D /* macOS */,
 				E4B28DB925E436960025131D /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		E4B28DB025E436940025131D /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				E4B28DB125E436940025131D /* HydrationApp.swift */,
-				E4B28DB225E436940025131D /* ContentView.swift */,
-				E4B28DB325E436960025131D /* Assets.xcassets */,
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		E4B28DB925E436960025131D /* Products */ = {
@@ -76,18 +62,12 @@
 		E4B28DBA25E436960025131D /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				E4B28DB125E436940025131D /* HydrationApp.swift */,
+				E4B28DB225E436940025131D /* ContentView.swift */,
+				E4B28DB325E436960025131D /* Assets.xcassets */,
 				E4B28DBB25E436960025131D /* Info.plist */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		E4B28DC125E436960025131D /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				E4B28DC225E436960025131D /* Info.plist */,
-				E4B28DC325E436960025131D /* macOS.entitlements */,
-			);
-			path = macOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,7 +114,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					E4B28DB725E436960025131D = {
 						CreatedOnToolsVersion = 12.4;
